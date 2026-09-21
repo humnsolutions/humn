@@ -438,9 +438,12 @@ section.bg-signal :is(.bg-paper, .bg-paper-deep, .bg-lime) {
   color: var(--color-ink);
 }
 
-/* Marquee: only animate when the user allows motion */
+/* Marquee: the track holds four copies of the group, so one -50% step moves
+   exactly two groups and the seam never shows — including on ultrawide
+   monitors that are wider than a single group. The duration is scaled to the
+   doubled half-width so the scroll speed stays the same. */
 .marquee-track {
-  animation: marquee 30s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
@@ -680,11 +683,12 @@ body::before {
   }
 }
 
-/* Reduced motion: hold off the endless, looping motion (scrollers,
-   bobbing stickers, spinning marks, shine sweeps). Brief one-shot
-   transitions stay, so the page still orients you when it changes. */
+/* Reduced motion: hold off the endless, looping motion (bobbing stickers,
+   spinning marks, shine sweeps). The marquee is the one exception — it is a
+   core brand element that reads as a broken, frozen strip when stopped, so it
+   keeps scrolling. Brief one-shot transitions also stay, so the page still
+   orients you when it changes. */
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
   .anim-bob,
   .anim-twinkle,
   .anim-spin,

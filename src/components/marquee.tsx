@@ -39,6 +39,8 @@ export function Marquee() {
       <div className="marquee-track flex w-max">
         <Group />
         <Group hidden />
+        <Group hidden />
+        <Group hidden />
       </div>
     </section>
   );
