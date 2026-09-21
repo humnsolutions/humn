@@ -1,26 +1,664 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------
+   HUMN Solutions — design tokens
+   Warm paper canvas, near-black ink, deep-violet primary (#3f2451),
+   acid lime spark.
+   Type: Fraunces (display) + Hanken Grotesk (body).
+------------------------------------------------------------------- */
+
+@theme {
+  --color-paper: oklch(0.962 0.014 85);
+  --color-paper-deep: oklch(0.932 0.022 85);
+  --color-ink: oklch(0.26 0.018 78);
+  --color-ink-deep: oklch(0.185 0.014 78);
+  --color-muted: oklch(0.5 0.025 78);
+  --color-faint: oklch(0.68 0.03 78);
+
+  /* Primary brand — deep violet (#3f2451).
+     signal      filled brand surfaces (buttons, bands, marks)
+     signal-deep accent text and emphasis on light surfaces
+     signal-soft accent text on dark ink surfaces */
+  --color-signal: #3f2451;
+  --color-signal-deep: oklch(0.268 0.09 308);
+  --color-signal-soft: oklch(0.82 0.085 310);
+
+  --color-lime: oklch(0.915 0.19 118);
+  --color-ok: oklch(0.55 0.14 150);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display-normal);
+
+  --shadow-pop: 4px 4px 0 0 oklch(0.26 0.018 78);
+  --shadow-pop-sm: 2px 2px 0 0 oklch(0.26 0.018 78);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Keyframes live outside @theme so plain-CSS references always resolve */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scribble underline draws itself on load */
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Stickers and small marks idle-float */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* Marquee separators sparkle as they drift past */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(90deg);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Kicker dots gently breathe */
+@keyframes blip {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0.6;
+  }
+}
+
+/* The exit sign has seen better days */
+@keyframes flicker {
+  0%,
+  40%,
+  44%,
+  100% {
+    opacity: 1;
+  }
+  42% {
+    opacity: 0.3;
+  }
+  66% {
+    opacity: 0.6;
+  }
+  68% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 0.45;
+  }
+  84% {
+    opacity: 1;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+/* Success-state heartbeat */
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.015) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-25deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.15) rotate(6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Oversized background words drift slowly, like they're breathing */
+@keyframes float-ghost {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+/* A light sweep crosses buttons on hover */
+@keyframes shine {
+  0% {
+    transform: translateX(-160%) skewX(-18deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(560%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+/* Mobile menu drops in rather than just appearing */
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Status dots emit a soft expanding ring */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-signal) 60%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 9px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .bg-ink :focus-visible,
+  .bg-ink-deep :focus-visible {
+    outline-color: var(--color-lime);
+  }
+
+  .bg-ink .kicker::before,
+  .bg-ink-deep .kicker::before {
+    background: var(--color-lime);
+  }
+}
+
+@layer components {
+  /* Content wrapper */
+  .wrap {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  /* Buttons — chunky, tactile, poster-flavoured */
+  .btn {
+    @apply inline-flex h-12 cursor-pointer select-none items-center justify-center gap-2 rounded-full border-2 border-ink px-6 text-base font-semibold no-underline transition-all duration-150 ease-out;
+    box-shadow: var(--shadow-pop-sm);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  /* Light sweep across the button face on hover */
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: -25%;
+    bottom: -25%;
+    left: -30%;
+    width: 30%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      color-mix(in oklab, #ffffff 55%, transparent),
+      transparent
+    );
+    transform: translateX(-160%) skewX(-18deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .btn:hover::after {
+    animation: shine 0.75s ease-out;
+  }
+  .btn svg {
+    transition: transform 0.18s ease-out;
+  }
+  .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-pop);
+  }
+  .btn:hover svg {
+    transform: translateX(3px);
+  }
+  .btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 0 var(--color-ink);
+  }
+  .btn-sm {
+    @apply h-10 px-5 text-sm;
+  }
+
+  .btn-signal {
+    background: var(--color-signal);
+    color: var(--color-paper);
+  }
+  .btn-signal:hover {
+    background: color-mix(in oklab, var(--color-signal) 84%, var(--color-ink));
+  }
+  .btn-paper {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
+    box-shadow: 2px 2px 0 0 var(--color-signal);
+  }
+  .btn-ink:hover {
+    background: var(--color-ink-deep);
+    box-shadow: 4px 4px 0 0 var(--color-signal);
+  }
+
+  /* Chip */
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border-2 border-ink bg-paper px-4 py-1.5 text-sm font-semibold whitespace-nowrap;
+    transition:
+      transform 0.2s ease-out,
+      background-color 0.2s ease-out;
+  }
+  .chip:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Desktop nav: underline that slides in from the left */
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-signal);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  /* Eyebrow kicker */
+  .kicker {
+    @apply inline-flex items-center gap-2.5 font-sans text-sm font-bold tracking-[0.16em] uppercase;
+    color: var(--color-muted);
+  }
+  .kicker::before {
+    content: "";
+    @apply inline-block size-2 rounded-full;
+    background: var(--color-signal);
+    animation: blip 3.4s ease-in-out infinite;
+  }
+
+  /* Inline squiggle underline */
+  .squiggle {
+    text-decoration: underline;
+    text-decoration-color: color-mix(
+      in oklab,
+      var(--color-signal) 85%,
+      transparent
+    );
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-style: wavy;
+  }
+
+  /* Reveal-on-load, reduced-motion safe (no animation => visible) */
+  .reveal {
+    animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* Marquee: only animate when the user allows motion */
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Idle motion helpers */
+.anim-bob {
+  animation: bob 4.5s ease-in-out infinite;
+}
+.anim-twinkle {
+  animation: twinkle 3.4s ease-in-out infinite;
+}
+.anim-spin {
+  animation: spin-slow 9s linear infinite;
+}
+.anim-flicker {
+  animation: flicker 5s steps(1, end) infinite;
+}
+.anim-float {
+  animation: float-ghost 9s ease-in-out infinite;
+}
+.anim-drop {
+  animation: drop-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-pulse {
+  animation: pulse-ring 2.8s ease-out infinite;
+}
+
+.hover-wiggle:hover {
+  animation: wiggle 0.6s ease-in-out;
+}
+
+/* Hero scribble: self-drawing stroke */
+.scribble-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 0.9s 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* The "exit sign" easter egg in the hero */
+.exit-sign {
+  box-shadow:
+    2px 2px 0 0 var(--color-ink),
+    0 0 22px color-mix(in oklab, var(--color-lime) 60%, transparent);
+}
+
+/* Success card settles in with a heartbeat */
+.pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.stamp-in {
+  animation: stamp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ------------------------------------------------------------------
+   Ambient motion — a paper grid that drifts, ink bands that breathe,
+   and a cursor that trails the pointer.
+------------------------------------------------------------------- */
+
+@keyframes grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(32px, 32px, 0);
+  }
+}
+
+@keyframes dot-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 22px 22px;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-in {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Faint graph-paper grid behind everything, drifting on a loop.
+   Sits above the page colour but below all content. */
+body::before {
+  content: "";
+  position: fixed;
+  top: -32px;
+  left: -32px;
+  width: calc(100% + 64px);
+  height: calc(100% + 64px);
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--color-ink) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-ink) 6%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+  will-change: transform;
+  animation: grid-drift 9s linear infinite;
+}
+
+/* Dark bands get the same paper motif, inverted: a faint dot grid that
+   drifts. Flat texture only — no colour wash behind the copy. */
+:where(section, footer).bg-ink,
+:where(section, footer).bg-ink-deep {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+:where(section, footer).bg-ink::before,
+:where(section, footer).bg-ink-deep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--color-paper) 26%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  opacity: 0.55;
+  animation: dot-drift 11s linear infinite;
+}
+
+/* Cursor paint for dark bands: a transparent canvas the pointer throws
+   dye into. Sits behind the copy — and above the dot grid above — so it
+   never washes over the text or intercepts a click. */
+.fluid-smoke {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fluid-smoke-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Custom cursor: a lagging ring, a tight lime dot, and a colour tail
+   painted on a canvas underneath both. */
+.cursor-tail {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cursor-ring,
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+.cursor-ring {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px solid var(--color-signal);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-paper) 55%, transparent);
+  transition:
+    opacity 0.25s ease-out,
+    background-color 0.2s ease-out,
+    border-color 0.2s ease-out;
+}
+.cursor-ring.is-hot {
+  border-color: var(--color-signal-deep);
+  background: color-mix(in oklab, var(--color-lime) 45%, transparent);
+}
+.cursor-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-lime);
+  border: 2px solid var(--color-ink);
+  transition: opacity 0.25s ease-out;
+}
+
+/* Only hide the native pointer on precise-pointer devices that actually
+   got the custom one (the class is added from JS). */
+@media (pointer: fine) {
+  .has-custom-cursor,
+  .has-custom-cursor * {
+    cursor: none;
+  }
+  .has-custom-cursor input,
+  .has-custom-cursor textarea {
+    cursor: text;
+  }
+}
+
+/* Route changes: the page eases in instead of snapping. `key` on the
+   wrapper forces this to replay on every navigation. */
+.page-enter {
+  animation: page-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll-linked reveals. Browsers without scroll-driven animation support
+   simply render the content at rest — nothing is hidden. */
+@supports (animation-timeline: view()) {
+  .scroll-rise {
+    animation-name: scroll-in;
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: view();
+    animation-range: entry -10% cover 45%;
+  }
+}
+
+/* Reduced motion: hold off the endless, looping motion (scrollers,
+   bobbing stickers, spinning marks, shine sweeps). Brief one-shot
+   transitions stay, so the page still orients you when it changes. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .anim-bob,
+  .anim-twinkle,
+  .anim-spin,
+  .anim-flicker,
+  .anim-float,
+  .anim-pulse,
+  .hover-wiggle:hover {
+    animation: none;
+  }
+  .btn:hover::after {
+    animation: none;
+  }
+  .scribble-draw path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }

@@ -20,6 +20,28 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Contact form email
+
+Submissions to `/contact` are POSTed to `src/app/api/contact/route.ts`, which delivers
+them by email to `site.email` (see `src/lib/site.ts`) using [Resend](https://resend.com).
+Replies go straight back to the visitor, because the submitter's address is set as
+`replyTo`.
+
+Required environment variable, in `.env.local` (not committed):
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Yes | API key from https://resend.com/api-keys |
+| `CONTACT_FROM_EMAIL` | No | Sender. Defaults to `HUMN Website <onboarding@resend.dev>` |
+
+Until a domain is verified at https://resend.com/domains, Resend only permits sending
+from `onboarding@resend.dev` and only to the address the Resend account was created
+with — so sign up with the address you want leads delivered to.
+
+If `RESEND_API_KEY` is missing or Resend rejects the send, the route logs the failure
+(including the lead) and returns an error, so the form tells the visitor to email
+directly rather than pretending the message was delivered.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
