@@ -18,7 +18,7 @@ const TAIL_MS = 520;
 const TAIL_MS_REDUCED = 240;
 const TAIL_MAX_SAMPLES = 160;
 const TAIL_VIOLET = "63, 36, 81";
-const TAIL_LIME = "214, 242, 74";
+const TAIL_LIME = "196, 197, 73";
 
 type Vec = { x: number; y: number };
 type Sample = Vec & { t: number };

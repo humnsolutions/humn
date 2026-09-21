@@ -77,6 +77,12 @@ const DEFAULTS: Required<FluidSimOptions> = {
   maxDpr: 1.5,
 };
 
+/* The dye walks the on-brand arc instead of the full colour wheel: from
+   the --color-lime spark (110°) down through the warm neutrals to brand
+   violet (310°), skipping the cyan/green half that fought the palette. */
+const DYE_ARC_START = 110 / 360;
+const DYE_ARC_SPAN = (110 + 360 - 310) / 360;
+
 /* ------------------------------------------------------------------ */
 /* Shaders                                                             */
 /* ------------------------------------------------------------------ */
@@ -691,8 +697,9 @@ export function createFluidSim(
   let hue = settings.hueStart - Math.floor(settings.hueStart);
   let hueClock = 0;
 
-  /* Full-saturation, full-value HSV, exactly like the reference site's
-     "colorful" mode: every tick lands somewhere else on the wheel. */
+  /* Full-saturation HSV at a dim value, but sampled along the brand arc
+     (violet → warm neutrals → chartreuse) so the smoke never leaves the
+     palette. Callers pass a wheel hue; it is remapped here. */
   const colorAt = (h: number, scale: number): RGB => {
     const sector = h * 6;
     const index = Math.floor(sector) % 6;
@@ -963,7 +970,11 @@ export function createFluidSim(
       simulate(step);
       render();
     },
-    color: () => colorAt(hue, settings.colorScale),
+    color: () =>
+      colorAt(
+        (DYE_ARC_START - DYE_ARC_SPAN * hue + 1) % 1,
+        settings.colorScale,
+      ),
     clear,
     dispose,
   };
