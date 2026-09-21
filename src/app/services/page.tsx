@@ -13,10 +13,10 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-signal text-paper">
         <span
           aria-hidden="true"
-          className="anim-float pointer-events-none absolute -right-8 bottom-0 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-ink/[0.035] lg:block"
+          className="anim-float pointer-events-none absolute -right-8 bottom-0 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-paper/[0.07] lg:block"
         >
           people.
         </span>
@@ -25,9 +25,9 @@ export default function ServicesPage() {
             <Kicker>What we do</Kicker>
             <h1 className="mt-6 font-display text-[clamp(2.6rem,1.2rem+5vw,4.8rem)] leading-[1] font-medium tracking-tight">
               Recruitment, HR and training with a{" "}
-              <em className="font-display-italic text-signal-deep">pulse</em>.
+              <em className="font-display-italic text-lime">pulse</em>.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-paper/80 md:text-xl">
               {servicesIntro}
             </p>
           </div>
@@ -40,7 +40,7 @@ export default function ServicesPage() {
               <a
                 key={service.slug}
                 href={`#${service.slug}`}
-                className="chip hover:bg-paper-deep"
+                className="chip hover:bg-lime"
               >
                 <span aria-hidden="true" className="text-signal-deep">
                   {service.index}

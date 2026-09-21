@@ -14,10 +14,10 @@ export default function WhyHumnPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-signal text-paper">
         <span
           aria-hidden="true"
-          className="anim-float pointer-events-none absolute -right-8 bottom-0 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-ink/[0.035] lg:block"
+          className="anim-float pointer-events-none absolute -right-8 bottom-0 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-paper/[0.07] lg:block"
         >
           why.
         </span>
@@ -25,12 +25,12 @@ export default function WhyHumnPage() {
           <Kicker>Why HUMN</Kicker>
           <h1 className="mt-6 font-display text-[clamp(2.6rem,1.2rem+5vw,4.8rem)] leading-[1] font-medium tracking-tight">
             Why our sessions actually{" "}
-            <em className="font-display-italic text-signal-deep">
+            <em className="font-display-italic text-lime">
               don&apos;t suck
             </em>
             .
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-paper/80 md:text-xl">
             Three reasons people stay awake in the room, a manifesto we&apos;re
             happy to defend, and an honest side-by-side with the workshops
             you&apos;ve already suffered through. No abstract theories — just

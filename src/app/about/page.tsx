@@ -56,10 +56,10 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-signal text-paper">
         <span
           aria-hidden="true"
-          className="anim-float pointer-events-none absolute -bottom-6 -right-6 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-ink/[0.035] lg:block"
+          className="anim-float pointer-events-none absolute -bottom-6 -right-6 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-paper/[0.07] lg:block"
         >
           human.
         </span>
@@ -67,9 +67,9 @@ export default function AboutPage() {
           <Kicker>About HUMN</Kicker>
           <h1 className="mt-6 font-display text-[clamp(2.6rem,1.2rem+5vw,4.8rem)] leading-[1] font-medium tracking-tight">
             We make the people side of work{" "}
-            <em className="font-display-italic text-signal-deep">better</em>.
+            <em className="font-display-italic text-lime">better</em>.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-paper/80 md:text-xl">
             HUMN is a crew of recruiters, former HR folks and recovering
             corporate trainers who got tired of watching good businesses run on
             chaos. We kept the stuff that actually works and burned the rest:

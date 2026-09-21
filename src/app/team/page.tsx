@@ -17,10 +17,10 @@ export default function TeamPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-signal text-paper">
         <span
           aria-hidden="true"
-          className="anim-float pointer-events-none absolute -bottom-6 -right-6 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-ink/[0.035] lg:block"
+          className="anim-float pointer-events-none absolute -bottom-6 -right-6 -z-10 hidden select-none font-display text-[20vw] leading-none font-bold text-paper/[0.07] lg:block"
         >
           team.
         </span>
@@ -28,10 +28,10 @@ export default function TeamPage() {
           <Kicker>The humans</Kicker>
           <h1 className="mt-6 font-display text-[clamp(2.6rem,1.2rem+5vw,4.8rem)] leading-[1] font-medium tracking-tight">
             Meet the people who{" "}
-            <em className="font-display-italic text-signal-deep">actually</em>{" "}
+            <em className="font-display-italic text-lime">actually</em>{" "}
             show up.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-paper/80 md:text-xl">
             Five humans, zero monotone slide-readers. Every one of us has sat
             through the training sessions we&apos;re now trying to kill, which
             makes us unusually motivated to build better ones.

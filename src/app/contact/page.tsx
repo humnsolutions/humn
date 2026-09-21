@@ -41,18 +41,18 @@ export default async function ContactPage({
 
   return (
     <>
-      <section>
+      <section className="bg-signal text-paper">
         <div className="scroll-rise wrap grid gap-10 py-12 md:py-16 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
           <div className="max-w-xl">
             <Kicker>Contact</Kicker>
             <h1 className="mt-6 font-display text-[clamp(2.6rem,1.2rem+5vw,4.6rem)] leading-[0.99] font-medium tracking-tight">
               Let&apos;s{" "}
-              <em className="font-display-italic text-signal-deep">
+              <em className="font-display-italic text-lime">
                 fix
               </em>{" "}
               your HR &amp; training.
             </h1>
-            <p className="mt-7 text-lg leading-relaxed text-muted md:text-xl">
+            <p className="mt-7 text-lg leading-relaxed text-paper/80 md:text-xl">
               Tell us what&apos;s broken: a role you can&apos;t fill, an HR pile
               you can&apos;t clear, or a team that&apos;s stopped paying
               attention. The messier the brief, the better we can help.
@@ -62,19 +62,19 @@ export default async function ContactPage({
               <div className="space-y-3">
                 <a
                   href={`mailto:${site.email}`}
-                  className="inline-flex items-center gap-3 font-display text-xl font-medium break-all underline decoration-signal decoration-2 underline-offset-4 hover:decoration-ink md:text-2xl"
+                  className="inline-flex items-center gap-3 font-display text-xl font-medium break-all underline decoration-lime decoration-2 underline-offset-4 hover:decoration-paper md:text-2xl"
                 >
                   <span
                     aria-hidden="true"
-                    className="grid size-11 shrink-0 place-items-center rounded-full border-2 border-ink bg-signal text-paper shadow-pop-sm"
+                    className="grid size-11 shrink-0 place-items-center rounded-full border-2 border-ink bg-lime text-ink shadow-pop-sm"
                   >
-                    <Mail className="size-5 text-paper" />
+                    <Mail className="size-5 text-ink" />
                   </span>
                   {site.email}
                 </a>
                 <a
                   href={`tel:${site.phoneHref}`}
-                  className="inline-flex items-center gap-3 font-display text-xl font-medium underline decoration-signal decoration-2 underline-offset-4 hover:decoration-ink md:text-2xl"
+                  className="inline-flex items-center gap-3 font-display text-xl font-medium underline decoration-lime decoration-2 underline-offset-4 hover:decoration-paper md:text-2xl"
                 >
                   <span
                     aria-hidden="true"
@@ -85,7 +85,7 @@ export default async function ContactPage({
                   {site.phone}
                 </a>
               </div>
-              <p className="pl-14 text-sm font-semibold text-muted">
+              <p className="pl-14 text-sm font-semibold text-paper/70">
                 A human replies within one business day. No drip campaigns, no
                 &quot;just checking in&quot;.
               </p>

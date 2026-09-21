@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-signal text-paper">
       {/* giant ghost word */}
       <span
         aria-hidden="true"
-        className="anim-float pointer-events-none absolute -right-8 bottom-0 -z-10 hidden select-none font-display text-[22vw] leading-none font-bold text-ink/[0.035] lg:block"
+        className="anim-float pointer-events-none absolute -right-8 bottom-0 -z-10 hidden select-none font-display text-[22vw] leading-none font-bold text-paper/[0.07] lg:block"
       >
         people.
       </span>
@@ -35,7 +35,7 @@ function Hero() {
 
       <div className="wrap grid items-center gap-10 pt-10 pb-14 md:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-20">
         <div className="max-w-2xl">
-          <p className="reveal inline-flex items-center gap-2.5 rounded-full border-2 border-ink bg-paper px-4 py-1.5 text-sm font-bold">
+          <p className="reveal inline-flex items-center gap-2.5 rounded-full border-2 border-ink bg-lime px-4 py-1.5 text-sm font-bold text-ink">
             <span
               aria-hidden="true"
               className="anim-pulse inline-block size-2 rounded-full bg-signal"
@@ -45,14 +45,14 @@ function Hero() {
 
           <h1 className="reveal mt-7 font-display text-[clamp(2.7rem,6.4vw,5.2rem)] leading-[0.98] font-medium tracking-tight [animation-delay:80ms]">
             Training that doesn&apos;t make you want to{" "}
-            <em className="hover-wiggle font-display-italic relative inline-block font-medium text-signal-deep">
+            <em className="hover-wiggle font-display-italic relative inline-block font-medium text-lime">
               stare at the exit sign
-              <Scribble className="scribble-draw absolute -bottom-2 left-0 w-full text-signal" />
+              <Scribble className="scribble-draw absolute -bottom-2 left-0 w-full text-lime" />
             </em>
             .
           </h1>
 
-          <p className="reveal mt-7 max-w-[46ch] text-lg leading-relaxed text-muted [animation-delay:160ms] md:text-xl">
+          <p className="reveal mt-7 max-w-[46ch] text-lg leading-relaxed text-paper/80 [animation-delay:160ms] md:text-xl">
             HUMN helps organizations build stronger teams: recruitment, HR
             outsourcing, and training that treats grown adults like grown
             adults. Real problems, real conversation, zero slide-reading — and
@@ -60,15 +60,15 @@ function Hero() {
           </p>
 
           <div className="reveal mt-9 flex flex-wrap items-center gap-4 [animation-delay:240ms]">
-            <LinkButton href="/contact" arrow>
+            <LinkButton href="/contact" variant="paper" arrow>
               Tell us what&apos;s broken
             </LinkButton>
-            <LinkButton href="/services" variant="paper">
+            <LinkButton href="/services" variant="lime">
               See what we do
             </LinkButton>
           </div>
 
-          <p className="reveal mt-9 max-w-md text-sm leading-relaxed text-muted [animation-delay:320ms]">
+          <p className="reveal mt-9 max-w-md text-sm leading-relaxed text-paper/75 [animation-delay:320ms]">
             Built for founders, HR teams, people ops and hiring managers
             who&apos;ve sat through one too many &quot;synergy&quot; sessions
             and are done pretending.

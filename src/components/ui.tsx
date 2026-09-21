@@ -166,7 +166,7 @@ export function Logo({
 type LinkButtonProps = {
   href: string;
   children: React.ReactNode;
-  variant?: "signal" | "paper" | "ink";
+  variant?: "signal" | "paper" | "ink" | "lime";
   size?: "md" | "sm";
   arrow?: boolean;
   className?: string;
@@ -176,6 +176,7 @@ const variantClass: Record<NonNullable<LinkButtonProps["variant"]>, string> = {
   signal: "btn-signal",
   paper: "btn-paper",
   ink: "btn-ink",
+  lime: "btn-lime",
 };
 
 export function LinkButton({

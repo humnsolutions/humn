@@ -18,7 +18,7 @@ function Group({ hidden = false }: { hidden?: boolean }) {
             {item}
           </span>
           <span
-            className="anim-twinkle inline-block text-paper/80"
+            className="anim-twinkle inline-block text-ink/60"
             aria-hidden="true"
             style={{ animationDelay: `${i * 0.45}s` }}
           >
@@ -34,7 +34,7 @@ export function Marquee() {
   return (
     <section
       aria-label="The HUMN promise"
-      className="marquee overflow-hidden border-y-2 border-ink bg-signal py-3.5 text-paper md:py-4"
+      className="marquee overflow-hidden border-y-2 border-ink bg-lime py-3.5 text-ink md:py-4"
     >
       <div className="marquee-track flex w-max">
         <Group />

@@ -8,12 +8,14 @@
 ------------------------------------------------------------------- */
 
 @theme {
-  --color-paper: oklch(0.962 0.014 85);
-  --color-paper-deep: oklch(0.932 0.022 85);
+  /* Canvas is a warm sand rather than white, so the page keeps colour even
+     between the bands. Deeper steps stay inside the same hue family. */
+  --color-paper: oklch(0.947 0.038 76);
+  --color-paper-deep: oklch(0.908 0.05 74);
   --color-ink: oklch(0.26 0.018 78);
   --color-ink-deep: oklch(0.185 0.014 78);
-  --color-muted: oklch(0.5 0.025 78);
-  --color-faint: oklch(0.68 0.03 78);
+  --color-muted: oklch(0.455 0.03 76);
+  --color-faint: oklch(0.655 0.035 76);
 
   /* Primary brand — deep violet (#3f2451).
      signal      filled brand surfaces (buttons, bands, marks)
@@ -333,10 +335,19 @@
     background: var(--color-ink-deep);
     box-shadow: 4px 4px 0 0 var(--color-signal);
   }
+  /* Lime action — the high-energy CTA, used on brand-violet surfaces
+     where a violet button would disappear into the band. */
+  .btn-lime {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+  .btn-lime:hover {
+    background: color-mix(in oklab, var(--color-lime) 84%, var(--color-ink));
+  }
 
   /* Chip */
   .chip {
-    @apply inline-flex items-center gap-2 rounded-full border-2 border-ink bg-paper px-4 py-1.5 text-sm font-semibold whitespace-nowrap;
+    @apply inline-flex items-center gap-2 rounded-full border-2 border-ink bg-paper px-4 py-1.5 text-sm font-semibold text-ink whitespace-nowrap;
     transition:
       transform 0.2s ease-out,
       background-color 0.2s ease-out;
@@ -396,6 +407,31 @@
   .reveal {
     animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+}
+
+/* ------------------------------------------------------------------
+   Brand-violet hero bands. Copy sits on a flat, solid field — no
+   gradient or glow behind text — so contrast is tuned explicitly:
+   kicker drops to the soft violet, the spark turns lime, focus rings
+   stay visible, and light panels nested inside keep a dark ring.
+   Unlayered on purpose, so it wins over the component-layer defaults.
+------------------------------------------------------------------- */
+section.bg-signal .kicker {
+  color: var(--color-signal-soft);
+}
+section.bg-signal .kicker::before {
+  background: var(--color-lime);
+}
+section.bg-signal :focus-visible {
+  outline-color: var(--color-lime);
+}
+section.bg-signal :is(.bg-paper, .bg-paper-deep) :focus-visible {
+  outline-color: var(--color-ink);
+}
+/* A light surface nested in the band re-establishes ink copy, so cards,
+   form panels and stickers never inherit the band's light text. */
+section.bg-signal :is(.bg-paper, .bg-paper-deep, .bg-lime) {
+  color: var(--color-ink);
 }
 
 /* Marquee: only animate when the user allows motion */

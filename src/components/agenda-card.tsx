@@ -30,7 +30,7 @@ export function AgendaCard() {
             </li>
           ))}
         </ol>
-        <p className="border-t-2 border-ink bg-signal px-5 py-2.5 text-center font-display text-sm font-bold tracking-wide text-paper uppercase">
+        <p className="border-t-2 border-ink bg-ink px-5 py-2.5 text-center font-display text-sm font-bold tracking-wide text-paper uppercase">
           Zero slides were harmed
         </p>
       </div>
