@@ -2,21 +2,21 @@
 
 /* ------------------------------------------------------------------
    HUMN Solutions — design tokens
-   Warm ivory canvas, warm near-black ink, deep-violet primary (#3f2451),
-   muted chartreuse spark.
+   Mauve canvas, violet-black ink, deep-violet primary (#3f2451),
+   muted citron spark. Every neutral shares the brand's violet hue.
    Type: Fraunces (display) + Hanken Grotesk (body).
 ------------------------------------------------------------------- */
 
 @theme {
-  /* Canvas is a warm ivory, not a saturated sand: a whisper of chroma keeps
-     it papery while staying close enough to neutral that it no longer reads
-     brown against the violet. Deeper steps stay inside the same hue family. */
-  --color-paper: oklch(0.958 0.021 80);
-  --color-paper-deep: oklch(0.922 0.028 78);
-  --color-ink: oklch(0.26 0.018 78);
-  --color-ink-deep: oklch(0.185 0.014 78);
-  --color-muted: oklch(0.455 0.022 78);
-  --color-faint: oklch(0.66 0.025 78);
+  /* Every neutral sits in the brand's violet family (~305°). The deep violet
+     bands and the page are then the same hue at different lightness, so the
+     transition between them reads as a value step, never a colour jump. */
+  --color-paper: oklch(0.955 0.021 305);
+  --color-paper-deep: oklch(0.912 0.03 305);
+  --color-ink: oklch(0.26 0.02 305);
+  --color-ink-deep: oklch(0.185 0.018 305);
+  --color-muted: oklch(0.455 0.03 305);
+  --color-faint: oklch(0.66 0.032 305);
 
   /* Primary brand — deep violet (#3f2451), locked to the logo artwork.
      signal      filled brand surfaces (buttons, bands, marks)
@@ -26,17 +26,17 @@
   --color-signal-deep: oklch(0.268 0.09 308);
   --color-signal-soft: oklch(0.82 0.085 310);
 
-  /* Spark — a muted chartreuse rather than acid lime. Lower lightness and
-     chroma keep it warm beside the ivory and stop it glowing on the dark
-     bands, while still reading as the high-energy accent. */
+  /* Spark — a muted citron rather than acid lime. The one hue outside the
+     violet family, kept low-contrast in value so it reads as energy instead
+     of a competing brand colour. */
   --color-lime: oklch(0.8 0.145 110);
   --color-ok: oklch(0.52 0.115 150);
 
   --font-sans: var(--font-body);
   --font-display: var(--font-display-normal);
 
-  --shadow-pop: 4px 4px 0 0 oklch(0.26 0.018 78);
-  --shadow-pop-sm: 2px 2px 0 0 oklch(0.26 0.018 78);
+  --shadow-pop: 4px 4px 0 0 oklch(0.26 0.02 305);
+  --shadow-pop-sm: 2px 2px 0 0 oklch(0.26 0.02 305);
 }
 
 /* Keyframes live outside @theme so plain-CSS references always resolve */
